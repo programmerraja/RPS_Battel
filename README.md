@@ -9,6 +9,6 @@ This is multiplayer game using firebase database
 
 
 external module required <br>
- 1.requests
+ 1.requests <br>
  2.firebase-python
  
