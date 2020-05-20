@@ -147,9 +147,9 @@ class RPS_Battel:
             width=10,
         )
         s.exit.place(x=350, y=470)
-
         # at exit handler
         s.root.protocol("WM_DELETE_WINDOW", s.at_exit)
+        
         s.root.mainloop()
 
     def score_check(s):
@@ -255,13 +255,13 @@ class RPS_Battel:
 
     def at_exit(s, handler=0):
         """ removing player from database """
-        if s.my_key:
+        if (s.my_key):
             try:
                 s.app.delete(s.link, s.my_key)
             except (requests.exceptions.ConnectionError):
                 messagebox.showinfo("WARNING", "No Internet Connection")
                 return
-        if handler:
+        if( handler):
             s.root.destroy()
         _exit(0)
 
@@ -337,21 +337,22 @@ class Game_lobby:
 
         # at exit handler
         s.root.protocol("WM_DELETE_WINDOW", s.at_exit)
-        if isback:
-
+     
+        if (isback):
             s.check_running = True
             s.update_running = True
 
-            check_thread = Thread(target=s.check_challange, args=(s.my_key,))
-            check_thread.start()
+            check_thread = Thread(target=s.check_challange, args=(s.my_key,), daemon=True)
             # creating thread to check for new player in backgroud
             update_thread = Thread(target=s.Update_player, daemon=True)
-            update_thread.start()
-
+            
             s.entry.insert(0, s.my_name)
             s.entry["state"] = "disabled"
+            #start the thread 
+            update_thread.start()
+            check_thread.start()
 
-            s.root.mainloop()
+        s.root.mainloop()
 
     def Register(s, event=None):
         """the player need to register his name in database inorder to play """
@@ -362,7 +363,7 @@ class Game_lobby:
                 "https://pydatabase.firebaseio.com/", None
             )
             s.my_name = s.entry.get()
-            if s.my_name:
+            if (s.my_name):
                 data = {
                     "name": s.my_name,
                     "is_playing": "0",
@@ -374,14 +375,13 @@ class Game_lobby:
                 my_key = s.app.post(s.link, data)
                 # player key
                 s.my_key = my_key["name"]
-
                 # creating thread to check challenge in backgroud
-                check_thread = Thread(target=s.check_challange, args=(s.my_key,))
-                check_thread.start()
-
+                check_thread = Thread(target=s.check_challange, args=(s.my_key,), daemon=True)
                 # creating thread to check for new player in backgroud
                 update_thread = Thread(target=s.Update_player, daemon=True)
+                
                 update_thread.start()
+                check_thread.start()
                 # disable the entry so the player not make spam
                 s.entry["state"] = "disabled"
             else:
@@ -395,7 +395,7 @@ class Game_lobby:
     def Update_player(s):
         """update the lobby """
         # keep running until he start playing
-        while s.update_running:
+        while( s.update_running):
 
             try:
                 new_data = s.app.get(s.link, "")
@@ -404,9 +404,9 @@ class Game_lobby:
                 messagebox.showinfo("WARNING", "No Internet Connection")
                 return
             # if no new player come don't update the lobby
-            if new_data != s.old_data:
+            if (new_data != s.old_data):
                 s.old_data = new_data
-                if s.old_data:
+                if (s.old_data):
                     s.keys_dic = {}
                     s.b = []
                     k = 0
@@ -451,7 +451,7 @@ class Game_lobby:
         except (ConnectionError):
             messagebox.showinfo("WARNING", "No Internet Connection")
             return
-        if result == "1":
+        if( result == "1"):
             messagebox.showinfo("WARNING", "He Is In Battle Feild!!")
             return
 
@@ -466,29 +466,31 @@ class Game_lobby:
             return
         # loop is used if he not respond the time out will displayed
         i = 0
-        while i <= 10:
+        while (i <= 10):
 
             try:
                 result = s.app.get(s.link, p_key + "/is_playing")
-                if result == "1":
+                if( result == "1"):
                     s.app.put(s.link + "/" + s.my_key, "is_playing", "1")
                     # geting opponent player name
                     p_name = s.app.get(s.link, p_key + "/name")
 
                     # destroy the lobby
                     s.root.destroy()
-                    RPS_Battel(s.my_key, s.my_name, p_key, p_name, s.app, s.link, s)
+                    
+                    game=RPS_Battel(s.my_key, s.my_name, p_key, p_name, s.app, s.link, s)
 
                 # if player reject the battle
-                elif "-1" == s.app.get(s.link, p_key + "/inv"):
+                elif( "-1" == s.app.get(s.link, p_key + "/inv")):
                     s.check_running = True
                     s.update_running = True
                     # creating thread to check challenge in backgroud
-                    check_thread = Thread(target=s.check_challange, args=(s.my_key,))
-                    check_thread.start()
+                    check_thread = Thread(target=s.check_challange, args=(s.my_key,), daemon=True)
                     # creating thread to check for new player in backgroud
                     update_thread = Thread(target=s.Update_player, daemon=True)
+                    
                     update_thread.start()
+                    check_thread.start()
                     try:
                         s.app.put(s.link + "/" + p_key, "inv", "0")
                         s.app.put(s.link + "/" + p_key, "p_key", " ")
@@ -496,6 +498,7 @@ class Game_lobby:
                         messagebox.showinfo(
                             "TIME OUT ", "No Response From Player Try Again Later"
                         )
+                    
 
                     except (ConnectionError):
                         messagebox.showinfo("WARNING", "No Internet Connection")
@@ -512,11 +515,11 @@ class Game_lobby:
         s.update_running = True
 
         # creating thread to check challenge in backgroud
-        check_thread = Thread(target=s.check_challange, args=(s.my_key,))
-        check_thread.start()
+        check_thread = Thread(target=s.check_challange, args=(s.my_key,), daemon=True)
         # creating thread to check for new player in backgroud
         update_thread = Thread(target=s.Update_player, daemon=True)
         update_thread.start()
+        check_thread.start()
         try:
             s.app.put(s.link + "/" + p_key, "inv", "0")
             s.app.put(s.link + "/" + p_key, "p_key", " ")
@@ -531,7 +534,7 @@ class Game_lobby:
         """checking for any new challenge"""
 
         invite = "0"
-        while not invite != "0" and s.check_running:
+        while (not invite != "0" and s.check_running):
 
             try:
                 # checking is any one invite me to play
@@ -541,14 +544,13 @@ class Game_lobby:
                 messagebox.showinfo("WARNING", "No Internet Connection")
                 return
 
-        if s.check_running:
+        if (s.check_running):
             # getting oponent player name
             p_name = s.app.get(s.link, my_key + "/p_name")
             p_key = s.app.get(s.link, my_key + "/p_key")
-            msg = messagebox.askquestion(
-                "BATTLE", "Would like To Accept Challenge From  " + p_name
-            )
-            if msg == "yes":
+            if(p_name):
+               msg = messagebox.askquestion("BATTLE", "Would like To Accept Challenge From  " + p_name)
+            if (msg.lower()== "yes"):
                 s.check_running = False
                 s.update_running = False
                 try:
@@ -560,7 +562,8 @@ class Game_lobby:
                     p_key = s.app.get(s.link, my_key + "/p_key")
                     s.root.destroy()
                     # starting battle  ground
-                    RPS_Battel(s.my_key, s.my_name, p_key, p_name, s.app, s.link, s)
+        
+                    game=RPS_Battel(s.my_key, s.my_name, p_key, p_name, s.app, s.link, s)
 
                 except (ConnectionError):
                     messagebox.showinfo("WARNING", "No Internet Connection")
@@ -572,6 +575,7 @@ class Game_lobby:
                 except (ConnectionError):
                     messagebox.showinfo("WARNING", "No Internet Connection")
                     return
+            
 
     def at_exit(s, handler=0):
         """ removing player from database"""
