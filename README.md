@@ -2,22 +2,26 @@
 This is Dualplayer game using firebase database 
 
 # how this work ?
+
   <p> First it ask user to register the player by entering his name and the player  details are  send to database to stored </p>
  <prev>
   The data is 
 <br>
   data = {<br>
-                    "name": s.my_name, #player name <br>
-                    "is_playing": "0",  #used to check if player is playing <br>
-                    "p_move": "0",   # player move which weapon the player is choosed (1-scssisor 2-rock 3-papper) <br>
-                    "p_key": "",   #a unique key to identified the opponent player<br>
-                    "inv": "0",   # if any player invite him to play mean it change  to 1<br>
-                    "p_name": "",   # this name for the opponent player name  <br>
+                    "name": s.my_name,              #player name <br>
+                    "is_playing": "0",              #used to check if player is playing <br>
+                    "p_move": "0",                  # player move which weapon the player is choosed (1-scssisor 2-rock 3-papper) <br>
+                    "p_key": "",                    #a unique key to identified the opponent player<br>
+                    "inv": "0",                     # if any player invite him to play mean it change  to 1<br>
+                    "p_name": "",                   # this name for the opponent player name  <br>
                 }<br>
   </prev>
   <br>
+  
 ![preview](image/img1.png)
+
 <br>
+
 <p> After player registered sucess. the active  player name are shown in text area. player need to select any one to battle or he need to wait untill some invite him to play  </p>
 
 <p> In background the two thread are created. one thread constantly checking if  player has any invite .second thread constantly  checking if any new  player came to play by checking the database if came it add the player name to textarea </p>
@@ -37,10 +41,11 @@ if he accept the both player get in to the battle to play </p>
 
 <br>
 <p> what happen if player2 take more time to select the weapon ?</p>
-   <p> then  the player1 will return to lobby and the battle get canceled 
-  </p>
- 
+   <p> then  the player1 will return to lobby and the battle get canceled </p>
 <br>
+
+
+
 # what are thing i learn from it ?
     <ul>
     <li> Firebase <p> To store the user move in database such that it can be acess by other player </p></li> 
