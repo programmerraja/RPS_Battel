@@ -4,9 +4,11 @@ This is Dualplayer game using firebase database
 # how this work ?
 
   <p> First it ask user to register the player by entering his name and the player  details are  send to database to stored </p>
- <prev>
+ 
   The data is 
 <br>
+
+<prev>
   data = {<br>
                     "name": s.my_name,              #player name <br>
                     "is_playing": "0",              #used to check if player is playing <br>
@@ -15,9 +17,10 @@ This is Dualplayer game using firebase database
                     "inv": "0",                     # if any player invite him to play mean it change  to 1<br>
                     "p_name": "",                   # this name for the opponent player name  <br>
                 }<br>
-  </prev>
-  <br>
   
+ </prev>
+ 
+ 
 ![preview](image/img1.png)
 
 <br>
@@ -47,15 +50,12 @@ if he accept the both player get in to the battle to play </p>
 
 
 # what are thing i learn from it ?
+<p>
     <ul>
-    <li> Firebase <p> To store the user move in database such that it can be acess by other player </p></li> 
-    <li> Threading <p> To get the oppent move from the firbase database threading is used so the game won't get interupted </p> </li>
+    <li> Firebase </li> 
+    <li> Threading</li>
     </ul>
-    
-
-
-
-
+ </p>  
 
 
 
