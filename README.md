@@ -16,12 +16,13 @@ This is Dualplayer game using firebase database
                 }<br>
   </prev>
   <br>
+![preview](image/img1.png)
+<br>
+<p> After player registered sucess. the active  player name are shown in text area. player need to select any one to battle or he need to wait untill some invite him to play  </p>
 
-<p> After player registerd sucess the online player name are shown in text area player need to select any one to battle </p>
+<p> In background the two thread are created. one thread constantly checking if  player has any invite .second thread constantly  checking if any new  player came to play by checking the database if came it add the player name to textarea </p>
 
-<p> In background the two thread are created. one thread constantly checking if   player has any invite .second thread constantly  checking any player came to play by checking the database </p>
-
-<p> If player1 select player2 to battle then the player2 data <b>inv</b> is changed to 1 by using the opponent unique key and the player1 name is add to player2 data <b> p_name:player1 </b> after player2 get notification that tell that player1 like to battle with you would llike to accept his invite 
+<p> If player1 select player2 to battle then the player2 data <b>inv </b> is changed to 1 by using the opponent unique key to edit the player2 data and the player1 name is add to player2 data <b>p_name : player1 </b> after player2 get notification that tell that player1 like to battle with you would llike to accept his invite 
 if he accept the both player get in to the battle to play </p>
 
 <p> how the player1 know that player2 accept the invite? </p>
@@ -29,6 +30,16 @@ if he accept the both player get in to the battle to play </p>
 <p> the player1 has thread which constantly check the player2 data <b>is_playing</b> if the data change 0 to 1 the player1 know that he accept the invite 
  if he reject the invite mean the data of is_playing is changed 0 to -1
 </p>
+
+<p> if both player get in to the battle then the player need to select any one weapon form the shown .if user select one then it add to player database and it check if player2 select his weapon if he select the weapon then the data is fetched from player2 database by using player2 unique key after the result is calculated and shown </p>
+
+![preview2](image/img2.png)
+
+<br>
+<p> what happen if player2 take more time to select the weapon ?</p>
+   <p> then  the player1 will return to lobby and the battle get canceled 
+  </p>
+ 
 <br>
 # what are thing i learn from it ?
     <ul>
@@ -40,10 +51,9 @@ if he accept the both player get in to the battle to play </p>
 
 
 
-![preview](image/img1.png)
 
 
-![preview2](image/img2.png)
+
 
 
 
