@@ -9,12 +9,12 @@ This is Dualplayer game using firebase database
 <br>
 ```
 data = {
-          "name": s.my_name,           #player name <br>
-          "is_playing": "0",           #used to check if player is playing <br>
-          "p_move": "0",               # player move which weapon the player is choosed (1-scssisor 2-rock 3-papper) <br>
-          "p_key": "",                 #a unique key to identified the opponent player<br>
-          "inv": "0",                  # if any player invite him to play mean it change  to 1<br>
-          "p_name": "",                # this name for the opponent player name  <br>
+          "name": s.my_name,           #player name 
+          "is_playing": "0",           #used to check if player is playing 
+          "p_move": "0",               # player move which weapon the player is choosed (1-scssisor 2-rock 3-papper) 
+          "p_key": "",                 #a unique key to identified the opponent player
+          "inv": "0",                  # if any player invite him to play mean it change  to 1
+          "p_name": "",                # this name for the opponent player name  
                 }
 ```
  
