@@ -7,8 +7,8 @@ This is Dualplayer game using firebase database
  
   The data is 
 <br>
-
-'''data = {<br>
+```
+data = {<br>
                     "name": s.my_name,              #player name <br>
                     "is_playing": "0",              #used to check if player is playing <br>
                     "p_move": "0",                  # player move which weapon the player is choosed (1-scssisor 2-rock 3-papper) <br>
@@ -16,7 +16,7 @@ This is Dualplayer game using firebase database
                     "inv": "0",                     # if any player invite him to play mean it change  to 1<br>
                     "p_name": "",                   # this name for the opponent player name  <br>
                 }<br>
-'''
+```
  
 ![preview](image/img1.png)
 
