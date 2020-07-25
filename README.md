@@ -8,7 +8,7 @@ This is Dualplayer game using firebase database
   The data is 
 <br>
 
-<prev>
+'''
   data = {<br>
                     "name": s.my_name,              #player name <br>
                     "is_playing": "0",              #used to check if player is playing <br>
@@ -18,8 +18,7 @@ This is Dualplayer game using firebase database
                     "p_name": "",                   # this name for the opponent player name  <br>
                 }<br>
   
- </prev>
- 
+ '''
  
 ![preview](image/img1.png)
 
@@ -56,9 +55,6 @@ if he accept the both player get in to the battle to play </p>
     <li> Threading</li>
     </ul>
  </p>  
-
-
-
 
 
 
